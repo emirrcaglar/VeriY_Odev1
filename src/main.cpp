@@ -20,8 +20,10 @@ int main()
     {
         case 1: Fonksiyonlar::Caprazlama();
         break;
-        case 2: Fonksiyonlar::Mutasyon();
+
+        case 2: Fonksiyonlar::Mutasyon(); // HENUZ DOSYAYA YAZMIYOR
         break;
+        
         case 3: Fonksiyonlar::OtoIslem();
         break;
         case 4: Fonksiyonlar::EkranaYaz();

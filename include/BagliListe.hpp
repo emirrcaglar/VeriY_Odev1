@@ -19,11 +19,10 @@ public:
     void Ekle(char veri);
     void Yazdir();
 
-    void xYap(int);
-    int listeUzunluk();
+    BagliListe* xYap(int);
 
-    void ilkYari();
-    void sonYari();
+    BagliListe* ListeSol(int);
+    BagliListe* ListeSag(int);
 
     friend ostream& operator<<(ostream& os,BagliListe& liste);
 
