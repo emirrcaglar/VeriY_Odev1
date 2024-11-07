@@ -48,7 +48,8 @@ void Fonksiyonlar::Caprazlama()
             delete liste;
         }
         if (solListe && sagListe) {
-            ciktiDosya << endl << *solListe << " " << *sagListe;  // Write both in the same line
+            cout << *solListe << " " << *sagListe << endl;
+            ciktiDosya << endl << *solListe << " " << *sagListe << endl;  // Write both in the same line
         }
         delete solListe;
         delete sagListe;
@@ -80,7 +81,6 @@ void Fonksiyonlar::Mutasyon()
         while(getline(dosya, satir))
         {
             BagliListe* liste = new BagliListe();
-            BagliListe* xListe = new BagliListe();
             listeNo++; // Increment list number
             
             for(char i : satir) {
@@ -88,18 +88,23 @@ void Fonksiyonlar::Mutasyon()
                     liste->Ekle(i);
                 }
             }
-            if(satir1 == listeNo ) {
+            if(satir1 == listeNo-1) {
                 bulundu = true; // Mark that the line was found
 
-                cout << endl << "Kromozom eski " << satir1 << ": " << *liste << endl;
-                cout << "\t\t|" << endl << "\t\t|" << endl << "\t\tv" << endl;
+                cout << endl << *liste << endl << endl;
+                cout << "\t|" << endl << "\t|" << endl << "\tv" << endl << endl;
 
-                xListe = liste->xYap(sira); // Perform mutation at the specified position
+                BagliListe* xListe = liste->xYap(sira); // Perform mutation at the specified position
                 
-                cout << endl << "Kromozom yeni " << ": " << *xListe << endl;
+                cout << *xListe << endl;
                 // ciktiDosya << xListe;
+                if (xListe) {
+                    cout << *xListe << endl;
+                    ciktiDosya << endl << *xListe << endl;
+                    delete xListe;
+                }                
             }
-            delete xListe;
+
             delete liste;
         }
 
@@ -110,6 +115,7 @@ void Fonksiyonlar::Mutasyon()
     else {
         cerr << "Dosya acilamadi: " << DNA_ADRES << endl;
     }
+    ciktiDosya.close();
     dosya.close();
 }
 

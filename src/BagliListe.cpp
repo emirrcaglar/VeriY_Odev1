@@ -28,28 +28,6 @@ void BagliListe::Ekle(char veri)
     dugumSayisi++;
 }
 
-void BagliListe::Yazdir()
-{
-    cout << *this;
-}
-
-ostream& operator<<(ostream& os,BagliListe& liste)
-{
-    Dugum* gec = liste.ilk;
-    os << "ilk pointer: " << gec << endl;  // Debugging output
-
-    if(gec==0)
-    {
-        return os<<"Liste Bos"<<endl;
-    }
-    for(int i=0;i<liste.dugumSayisi;i++)
-    {
-        os<<gec->veri<<" ";
-        gec = gec->sonraki;
-    }
-    return os;
-}
-
 // Mutasyon sirasinda X e cevir
 BagliListe* BagliListe::xYap(int sira)
 {
@@ -58,19 +36,26 @@ BagliListe* BagliListe::xYap(int sira)
 
     // Handle the case where sira is 0
     if (sira == 0) { 
-        ilk->veri = 'X'; 
-        return xListe;
+        ilk->veri = 'X';
+        while(gec->sonraki != 0) {
+            xListe->Ekle(gec->veri);
+            gec = gec->sonraki;
+        }
+        xListe->Ekle(gec->veri);
     }
 
     // Handle the case where sira is 1
     if (sira == 1) { 
         ilk->sonraki->veri = 'X'; 
-        return xListe;
+        while(gec->sonraki != 0) {
+            xListe->Ekle(gec->veri);
+            gec = gec->sonraki;
+        }
+        xListe->Ekle(gec->veri);
     }
-    if (sira > 1)
-    {
+    if(sira > 1) {
         // Traverse the list until the correct position (sira-1)
-        for (int i = 0; i < sira - 1; i++) {
+        for (int i = 0; i < sira-1; i++) {
             if (gec->sonraki != 0) {
                 xListe->Ekle(gec->veri);
                 gec = gec->sonraki;
@@ -89,8 +74,8 @@ BagliListe* BagliListe::xYap(int sira)
             xListe->Ekle(gec->veri);
             gec = gec->sonraki;
         }
+        xListe->Ekle(gec->veri);
     }
-
     return xListe;
 }
 
@@ -137,3 +122,18 @@ BagliListe* BagliListe::ListeSag(int x)
     return listeSag;  // Free allocated memory
 }
 
+ostream& operator<<(ostream& os,BagliListe& liste)
+{
+    Dugum* gec = liste.ilk;
+
+    if(gec==0)
+    {
+        return os<<"Liste Bos"<<endl;
+    }
+    for(int i=0;i<liste.dugumSayisi;i++)
+    {
+        os<<gec->veri<<" ";
+        gec = gec->sonraki;
+    }
+    return os;
+}

@@ -17,7 +17,6 @@ public:
     ~BagliListe();
     
     void Ekle(char veri);
-    void Yazdir();
 
     BagliListe* xYap(int);
 
