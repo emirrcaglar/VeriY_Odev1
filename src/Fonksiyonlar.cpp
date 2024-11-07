@@ -3,7 +3,6 @@
 #include "../include/BagliListe.hpp"
 #include "../include/Fonksiyonlar.hpp"
 using namespace std;
-string DNA_ADRES = "Dna.txt";
 
 void Fonksiyonlar::Caprazlama()
 {
@@ -20,9 +19,9 @@ void Fonksiyonlar::Caprazlama()
         int sayi2 = 0;
         string satir;
 
-        cout << "sol gir" << endl;
+        cout << "satir numarasi girin: " << endl;
         cin >> sayi1;
-        cout << "sag gir" << endl;
+        cout << "sutun numarasi girin: " << endl;
         cin >> sayi2;
 
         int listeNo = 0;
@@ -31,12 +30,20 @@ void Fonksiyonlar::Caprazlama()
 
         while(getline(dosya, satir))
         {
+
+            // Check if the line is empty or contains only spaces
+            if (satir.find_first_not_of(' ') == string::npos) {
+                continue;  // Skip lines that are empty or contain only spaces
+            }
+
             BagliListe* liste = new BagliListe();
+
             for(char i : satir) {
                 if(i != ' ') { 
                     liste->Ekle(i);
                 }
             }
+
             listeNo++;
             if(sayi1 == listeNo - 1){
                 solListe = liste->ListeSol(liste->dugumSayisi);
@@ -72,14 +79,20 @@ void Fonksiyonlar::Mutasyon()
         int satir1 = 0;
         int sira = 0;
 
-        cout << "Satir1 girin: ";
+        cout << "satir numarasi girin: ";
         cin >> satir1;
-        cout << "Sira girin: ";
+        cout << "sira numarasi girin: ";
         cin >> sira;
 
         bool bulundu = false; // Flag to track if the target line was found
         while(getline(dosya, satir))
         {
+
+            // Check if the line is empty or contains only spaces
+            if (satir.find_first_not_of(' ') == string::npos) {
+                continue;  // Skip lines that are empty or contain only spaces
+            }
+            
             BagliListe* liste = new BagliListe();
             listeNo++; // Increment list number
             
@@ -121,7 +134,7 @@ void Fonksiyonlar::Mutasyon()
 
 void Fonksiyonlar::OtoIslem()
 {
-    cout << "OTOISLEM";
+
 }
 
 void Fonksiyonlar::EkranaYaz()
@@ -132,6 +145,11 @@ void Fonksiyonlar::EkranaYaz()
         int listeNo = 0;
         while(getline(dosya, satir)) 
         {
+
+            if (satir.find_first_not_of(' ') == string::npos) {
+                continue;
+            }
+
             BagliListe* liste = new BagliListe();
             for(char harf : satir){
                 liste->Ekle(harf);
