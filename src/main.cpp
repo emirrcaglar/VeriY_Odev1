@@ -1,11 +1,9 @@
-#include <iostream>
-#include <string>
-#include "../include/BagliListe.hpp"
 #include "../include/Fonksiyonlar.hpp"
-using namespace std;
 
 int main()
 {   
+    int sayi1 = 0;
+    int sayi2 = 0;
     
     cout << endl << "Bir fonksiyon secin: " << endl;
     cout << "1- Caprazlama" << endl;
@@ -17,10 +15,27 @@ int main()
     cin >> secim;
 
     switch(secim)
-    {
-        case 1: Fonksiyonlar::Caprazlama();
+    {          
+        case 1: 
+
+        cout << endl << "Sol yarisi istenen satir: ";
+        cin >> sayi1;
+        cout << endl << "Sag yarisi istenen satir: ";
+        cin >> sayi2;
+        cout << endl;
+        Fonksiyonlar::Caprazlama(&sayi1, &sayi2);
+
         break;
-        case 2: Fonksiyonlar::Mutasyon();
+
+        case 2:
+
+        cout << endl << "Mutasyona ugrayacak kromozom: ";
+        cin >> sayi1;
+        cout << endl << "Kromozomdaki DNA'nin sirasi:  ";
+        cin >> sayi2;
+        cout << endl;
+        Fonksiyonlar::Mutasyon(&sayi1, &sayi2);
+
         break;
         case 3: Fonksiyonlar::OtoIslem();
         break;

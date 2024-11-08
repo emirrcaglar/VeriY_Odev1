@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
+
 #include "../include/BagliListe.hpp"
 #include "../include/Fonksiyonlar.hpp"
 using namespace std;
 
-void Fonksiyonlar::Caprazlama()
+void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
 {
     ifstream dosya(DNA_ADRES);
     ofstream ciktiDosya(DNA_ADRES, ios::app);  // Open output file
@@ -15,14 +16,7 @@ void Fonksiyonlar::Caprazlama()
 
     if(dosya.is_open()) 
     {
-        int sayi1 = 0;
-        int sayi2 = 0;
         string satir;
-
-        cout << "satir numarasi girin: " << endl;
-        cin >> sayi1;
-        cout << "sutun numarasi girin: " << endl;
-        cin >> sayi2;
 
         int listeNo = 0;
         BagliListe* solListe = nullptr;
@@ -45,18 +39,22 @@ void Fonksiyonlar::Caprazlama()
             }
 
             listeNo++;
-            if(sayi1 == listeNo - 1){
+            if(*sayi1 == listeNo - 1){
                 solListe = liste->ListeSol(liste->dugumSayisi);
+                cout << "[C]SOL: " << *liste << ' ';
             }
-            if(sayi2 == listeNo - 1){
+            if(*sayi2 == listeNo - 1){
                 sagListe = liste->ListeSag(liste->dugumSayisi);
+                cout << "[C]SAG: " << *liste << endl << endl;
+
             }
 
             delete liste;
         }
         if (solListe && sagListe) {
-            cout << *solListe << " " << *sagListe << endl;
-            ciktiDosya << endl << *solListe << " " << *sagListe << endl;  // Write both in the same line
+            cout << "\t**CAPRAZLAMA**" << endl << endl;
+            cout << "[C]YENI: "<< *solListe << ' '  << *sagListe << endl;
+            ciktiDosya << endl << *solListe << " " << *sagListe << endl;
         }
         delete solListe;
         delete sagListe;
@@ -68,7 +66,7 @@ void Fonksiyonlar::Caprazlama()
     ciktiDosya.close();
 }
 
-void Fonksiyonlar::Mutasyon()
+void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
 {
     ifstream dosya(DNA_ADRES);
     ofstream ciktiDosya(DNA_ADRES, ios::app);
@@ -76,13 +74,6 @@ void Fonksiyonlar::Mutasyon()
     {
         string satir;
         int listeNo = 0;
-        int satir1 = 0;
-        int sira = 0;
-
-        cout << "satir numarasi girin: ";
-        cin >> satir1;
-        cout << "sira numarasi girin: ";
-        cin >> sira;
 
         bool bulundu = false; // Flag to track if the target line was found
         while(getline(dosya, satir))
@@ -101,28 +92,29 @@ void Fonksiyonlar::Mutasyon()
                     liste->Ekle(i);
                 }
             }
-            if(satir1 == listeNo-1) {
+            
+            if(*sayi1 == listeNo-1) {
                 bulundu = true; // Mark that the line was found
 
-                cout << endl << *liste << endl << endl;
-                cout << "\t|" << endl << "\t|" << endl << "\tv" << endl << endl;
+                cout << endl << "[M]ESKI: " <<
+                *liste << endl;
+                cout << "\t|" << endl << "\t| **MUTASYON**" << endl << "\tv" << endl;
 
-                BagliListe* xListe = liste->xYap(sira); // Perform mutation at the specified position
+                BagliListe* xListe = liste->xYap(*sayi2); // Perform mutation at the specified position
                 
-                cout << *xListe << endl;
+                // cout << *xListe << endl;
                 // ciktiDosya << xListe;
                 if (xListe) {
-                    cout << *xListe << endl;
+                    cout << "[M]YENI: " << *xListe << endl;
                     ciktiDosya << endl << *xListe << endl;
                     delete xListe;
                 }                
             }
-
             delete liste;
         }
 
         if (!bulundu) {
-            cerr << "Satir bulunamadi: " << satir1 << endl;
+            cerr << "Satir bulunamadi: " << *sayi1 << endl;
         }
     }
     else {
@@ -130,11 +122,6 @@ void Fonksiyonlar::Mutasyon()
     }
     ciktiDosya.close();
     dosya.close();
-}
-
-void Fonksiyonlar::OtoIslem()
-{
-
 }
 
 void Fonksiyonlar::EkranaYaz()
@@ -161,4 +148,36 @@ void Fonksiyonlar::EkranaYaz()
         }
     } else { cerr << "Dosya acilamadi: " << DNA_ADRES << endl; }
     dosya.close();
+}
+
+void Fonksiyonlar::OtoIslem()
+{   
+    ifstream dosya(ISLEMLER_ADRES);
+
+    if(dosya.is_open())
+    {
+        string satir;
+
+        while(getline(dosya, satir))
+        {
+            if(satir[0] == 'C')
+            {
+                istringstream ss(satir);
+                string komut;
+                int sayi1, sayi2;
+                ss >> komut >> sayi1 >> sayi2;
+
+                Caprazlama(&sayi1, &sayi2);
+            }
+            if(satir[0] == 'M')
+            {
+                istringstream ss(satir);
+                string komut;
+                int sayi1, sayi2;
+                ss >> komut >> sayi1 >> sayi2;
+
+                Mutasyon(&sayi1, &sayi2);
+            }
+        }
+    }
 }
