@@ -37,7 +37,7 @@ void createTestFile(const std::string& filename, int numLines, int minLineLength
 
 int main() {
     std::string filename = "../Dna.txt";
-    int numLines = 1000000;        // Number of lines to generate
+    int numLines = 10000;        // Number of lines to generate
     int minLineLength = 5;       // Minimum characters per line
     int maxLineLength = 20;      // Maximum characters per line
 

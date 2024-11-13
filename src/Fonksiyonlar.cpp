@@ -54,7 +54,7 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
         if (solListe && sagListe) {
             cout << "\t**CAPRAZLAMA**" << endl << endl;
             cout << "[C]YENI: "<< *solListe << ' '  << *sagListe << endl;
-            ciktiDosya << endl << *solListe << " " << *sagListe << endl;
+            // ciktiDosya << endl << *solListe << " " << *sagListe << endl;
         }
         delete solListe;
         delete sagListe;
@@ -106,7 +106,7 @@ void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
                 // ciktiDosya << xListe;
                 if (xListe) {
                     cout << "[M]YENI: " << *xListe << endl;
-                    ciktiDosya << endl << *xListe << endl;
+                    // ciktiDosya << endl << *xListe << endl;
                     delete xListe;
                 }                
             }
@@ -141,7 +141,7 @@ void Fonksiyonlar::EkranaYaz()
             for(char harf : satir){
                 liste->Ekle(harf);
             }
-            cout << "Kromozom " << listeNo << "\t: " <<*liste;
+            cout << "Kromozom " << listeNo << "\t: " <<*liste << endl;
             // liste->Yazdir();
             listeNo++;
         liste->~BagliListe();

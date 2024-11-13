@@ -1,10 +1,15 @@
 #include "../include/Fonksiyonlar.hpp"
+#include <chrono>
+using namespace std::chrono;
 
 int main()
-{   
+{
+    
+    auto start = std::chrono::system_clock::now();
+
     int sayi1 = 0;
     int sayi2 = 0;
-    
+
     cout << endl << "Bir fonksiyon secin: " << endl;
     cout << "1- Caprazlama" << endl;
     cout << "2- Mutasyon" << endl;
@@ -38,11 +43,17 @@ int main()
 
         break;
         case 3: Fonksiyonlar::OtoIslem();
+        
         break;
         case 4: Fonksiyonlar::EkranaYaz();
         break;
         case 5:  return 0;
     }
+
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    std::cout << elapsed.count() << '\n';
     
     return 0;
 }
