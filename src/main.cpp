@@ -8,6 +8,7 @@ int main()
     auto start = std::chrono::system_clock::now();
 
     // Call the main program function
+    Fonksiyonlar::DNA_Oku();
     Fonksiyonlar::Program();
 
     // Record the end time after execution

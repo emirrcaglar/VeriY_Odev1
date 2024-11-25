@@ -1,6 +1,7 @@
 #ifndef FONKSIYONLAR_HPP
 #define FONKSIYONLAR_HPP
 #include "BagliListe.hpp"
+#include "Dugum.hpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -22,6 +23,7 @@ namespace Fonksiyonlar
     void Program();
     int Cikis();    
 
+    void DNA_Oku();
 };
 
 #endif

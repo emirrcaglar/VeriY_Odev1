@@ -79,7 +79,6 @@ BagliListe* BagliListe::xYap(int sira)
     return xListe;
 }
 
-
 BagliListe* BagliListe::ListeSol(int x)
 {
     

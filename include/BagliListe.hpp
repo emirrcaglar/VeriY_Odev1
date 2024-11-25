@@ -9,9 +9,11 @@ using namespace std;
 class BagliListe
 {
 private:
+
+public:
     Dugum* ilk;
     Dugum* son;
-public:
+    
     int dugumSayisi;
     BagliListe();
     ~BagliListe();
