@@ -25,9 +25,9 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
         while(getline(dosya, satir))
         {
 
-            // Check if the line is empty or contains only spaces
+            // Satir bos mu, ya da sadece space mi iceriyor 
             if (satir.find_first_not_of(' ') == string::npos) {
-                continue;  // Skip lines that are empty or contain only spaces
+                continue;  // Bos ya da sadece space iceren satirlari atla
             }
 
             BagliListe* liste = new BagliListe();
@@ -41,18 +41,18 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
             listeNo++;
             if(*sayi1 == listeNo - 1){
                 solListe = liste->ListeSol(liste->dugumSayisi);
-                cout << "[C]SOL: " << *liste << ' ';
+                cout << "[C]SOL: " << *liste << endl;
             }
             if(*sayi2 == listeNo - 1){
                 sagListe = liste->ListeSag(liste->dugumSayisi);
-                cout << "[C]SAG: " << *liste << endl << endl;
+                cout << "[C]SAG: " << *liste << endl;
 
             }
 
             delete liste;
         }
         if (solListe && sagListe) {
-            cout << "\t**CAPRAZLAMA**" << endl << endl;
+            cout << "\n\t**CAPRAZLAMA**\n" << endl;
             cout << "[C]YENI: "<< *solListe << ' '  << *sagListe << endl;
             // ciktiDosya << endl << *solListe << " " << *sagListe << endl;
         }
@@ -75,17 +75,16 @@ void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
         string satir;
         int listeNo = 0;
 
-        bool bulundu = false; // Flag to track if the target line was found
+        bool bulundu = false;
         while(getline(dosya, satir))
         {
 
-            // Check if the line is empty or contains only spaces
             if (satir.find_first_not_of(' ') == string::npos) {
-                continue;  // Skip lines that are empty or contain only spaces
+                continue;
             }
             
             BagliListe* liste = new BagliListe();
-            listeNo++; // Increment list number
+            listeNo++;
             
             for(char i : satir) {
                 if(i != ' ') { 
@@ -94,13 +93,13 @@ void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
             }
             
             if(*sayi1 == listeNo-1) {
-                bulundu = true; // Mark that the line was found
+                bulundu = true; 
 
                 cout << endl << "[M]ESKI: " <<
                 *liste << endl;
                 cout << "\t|" << endl << "\t| **MUTASYON**" << endl << "\tv" << endl;
 
-                BagliListe* xListe = liste->xYap(*sayi2); // Perform mutation at the specified position
+                BagliListe* xListe = liste->xYap(*sayi2);
                 
                 // cout << *xListe << endl;
                 // ciktiDosya << xListe;
@@ -180,4 +179,56 @@ void Fonksiyonlar::OtoIslem()
             }
         }
     }
+}
+
+
+void Fonksiyonlar::Program()
+{
+    int sayi1 = 0;
+    int sayi2 = 0;
+
+    cout << endl << "Bir fonksiyon secin: " << endl;
+    cout << "1- Caprazlama" << endl;
+    cout << "2- Mutasyon" << endl;
+    cout << "3- Otomatik Islemler" << endl;
+    cout << "4- Ekrana Yaz" << endl;
+    cout << "5- Cikis" << endl;
+    int secim;
+    cin >> secim;
+
+    switch(secim)
+    {          
+        case 1: 
+
+        cout << endl << "Sol yarisi istenen kromozom sirasi: ";
+        cin >> sayi1;
+        cout << endl << "Sag yarisi istenen kromozom sirasi: ";
+        cin >> sayi2;
+        cout << endl;
+        Fonksiyonlar::Caprazlama(&sayi1, &sayi2);
+
+        break;
+
+        case 2:
+
+        cout << endl << "Mutasyona ugrayacak kromozom: ";
+        cin >> sayi1;
+        cout << endl << "Kromozomdaki DNA'nin sirasi:  ";
+        cin >> sayi2;
+        cout << endl;
+        Fonksiyonlar::Mutasyon(&sayi1, &sayi2);
+
+        break;
+        case 3: Fonksiyonlar::OtoIslem(); 
+        break;
+        case 4: Fonksiyonlar::EkranaYaz();
+        break;
+        case 5: Fonksiyonlar::Cikis();
+    }
+  
+}
+
+int Fonksiyonlar::Cikis()
+{
+    return 0;
 }

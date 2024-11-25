@@ -5,8 +5,8 @@
 #include <string>
 #include <sstream>
 using namespace std;
-const string DNA_ADRES = "Dna.txt";
-const string ISLEMLER_ADRES = "Islemler.txt";
+const string DNA_ADRES = "BuyukDna.txt";
+const string ISLEMLER_ADRES = "BuyukIslemler.txt";
 
 
 namespace Fonksiyonlar
@@ -18,6 +18,10 @@ namespace Fonksiyonlar
     void OtoIslem();
 
     void EkranaYaz();
+
+    void Program();
+    int Cikis();    
+
 };
 
 #endif
