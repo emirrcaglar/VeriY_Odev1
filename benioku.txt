@@ -1,0 +1,3 @@
+DNA ve OtoIslemler dosyalarinin okunmasi icin gereken adres yolu /include/Fonksiyonlar.hpp icinde const tutuluyor.
+
+"Dna.txt" , "OtoIslemler.txt" varsayilan dosya isimleridir.

@@ -1,22 +1,20 @@
+/** 
+* @file main.cpp
+* @description Programi calistiran main dosyasidir.
+* @course 1. Ogretim C grubu
+* @assignment 1. Odev
+* @date 06-11-2024
+* @author Emir Caglar Demirci caglar.demirci@ogr.sakarya.edu.tr
+*/
+
 #include "../include/Fonksiyonlar.hpp"
-#include <chrono>
-using namespace std::chrono;
 
 int main()
 {
-    // Record the start time before executing the program
-    auto start = std::chrono::system_clock::now();
-
-    // Call the main program function
     Fonksiyonlar::DNA_Oku();
-    Fonksiyonlar::Program();
 
-    // Record the end time after execution
-    auto end = std::chrono::system_clock::now();
+    Fonksiyonlar::Program(); 
 
-    // Calculate and display elapsed time in milliseconds
-    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    std::cout << "\nIslem suresi: " << elapsed.count() << " ms" << '\n';
 
     return 0;
 }

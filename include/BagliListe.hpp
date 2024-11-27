@@ -1,3 +1,13 @@
+/** 
+* @file BagliListe.hpp
+* @description Bagli Liste fonksiyonlarinin header dosyasidir
+* @course 1. Ogretim C grubu
+* @assignment 1. Odev
+* @date 06-11-2024
+* @author Emir Caglar Demirci caglar.demirci@ogr.sakarya.edu.tr
+*/
+
+
 #ifndef BAGLILISTE_HPP
 #define BAGLILISTE_HPP
 
@@ -19,11 +29,6 @@ public:
     ~BagliListe();
     
     void Ekle(char veri);
-
-    BagliListe* xYap(int);
-
-    BagliListe* ListeSol(int);
-    BagliListe* ListeSag(int);
 
     friend ostream& operator<<(ostream& os,BagliListe& liste);
 
