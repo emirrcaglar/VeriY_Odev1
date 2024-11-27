@@ -11,10 +11,9 @@
 
 int main()
 {
-    Fonksiyonlar::DNA_Oku();
-
-    Fonksiyonlar::Program(); 
-
+    Fonksiyonlar fonksiyonlar;
+    fonksiyonlar.DNA_Oku();
+    fonksiyonlar.Program(); 
 
     return 0;
 }

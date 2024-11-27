@@ -22,6 +22,7 @@ BagliListe::~BagliListe()
         Dugum* sil = gec;
         gec = gec->sonraki;
         delete sil;
+        sil = nullptr;
     }
 }
 

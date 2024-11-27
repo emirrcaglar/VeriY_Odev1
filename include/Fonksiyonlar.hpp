@@ -7,31 +7,30 @@
 * @author Emir Caglar Demirci caglar.demirci@ogr.sakarya.edu.tr
 */
 
-
 #ifndef FONKSIYONLAR_HPP
 #define FONKSIYONLAR_HPP
-#include "BagliListe.hpp"
-#include "Dugum.hpp"
-#include <iostream>
-#include <string>
-#include <sstream>
-using namespace std;
-const string DNA_ADRES = "Dna.txt";
-const string ISLEMLER_ADRES = "OtoIslemler.txt";
 
+#define DNA_ADRES "Dna.txt"
+#define ISLEMLER_ADRES "OtoIslemler.txt"
 
-namespace Fonksiyonlar
-{
-    void Caprazlama(int*, int*);
-    void Mutasyon(int*, int*);
-    void OtoIslem();
+class BagliListe;
 
-    void EkranaYaz();
+class Fonksiyonlar {
+private:
+    BagliListe* liste;
+    int listeNo;
 
-    void Program();
-    int Cikis();    
+public:
+    Fonksiyonlar(); 
+    ~Fonksiyonlar();
 
     void DNA_Oku();
+    void Caprazlama(int* sayi1, int* sayi2);
+    void Mutasyon(int* sayi1, int* sayi2);
+    void EkranaYaz();
+    void OtoIslem();
+    void Program();
+    int Cikis();
 };
 
 #endif

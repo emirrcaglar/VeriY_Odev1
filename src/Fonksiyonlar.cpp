@@ -6,17 +6,49 @@
 * @date 15-11-2024
 * @author Emir Caglar Demirci caglar.demirci@ogr.sakarya.edu.tr
 */
-
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "../include/BagliListe.hpp"
 #include "../include/Fonksiyonlar.hpp"
 #include "../include/Dugum.hpp"
+
 using namespace std;
 
-static BagliListe* liste = nullptr;
-int listeNo = 0;
+Fonksiyonlar::Fonksiyonlar() : liste(nullptr), listeNo(0) {}
+
+Fonksiyonlar::~Fonksiyonlar() {
+    if (liste != nullptr) {
+        delete liste;
+        liste = nullptr;
+    }
+}
+
+void Fonksiyonlar::DNA_Oku() {
+    if (liste == nullptr) {
+        liste = new BagliListe();
+    }
+    ifstream dosya(DNA_ADRES);
+    if (dosya.is_open()) {
+        cout << "Dosya basariyla acildi!" << endl;
+        string satir;
+        while (getline(dosya, satir)) {
+            if (satir.find_first_not_of(' ') != string::npos) {
+                listeNo++;
+                for (char harf : satir) {
+                    if (harf != ' ') {
+                        liste->Ekle(harf); 
+                    }
+                }
+                liste->Ekle('_');
+            }
+        }
+        dosya.close();
+    } else {
+        cerr << "Dosya acilamadi: " << DNA_ADRES << endl;
+    }
+}
 
 void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
 {
@@ -42,16 +74,13 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
         }
     }
     bir1 = bir;
-    cout << "Kromozom 1: ";
     while(bir1->veri != '_')
     {
-        cout << bir1->veri << ' ';
         kromozom1 += bir1->veri;
         bir1 = bir1->sonraki;
         kromozom1Uzunluk++;
     }
     bir1 = bir;
-    cout << endl;
 
 
     for(int i = 0; i < *sayi2; i++)
@@ -66,28 +95,20 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
         }
     }
     iki1 = iki;
-    cout << "Kromozom 2: ";
     while(iki1->veri != '_')
     {
-        cout << iki1->veri << ' ';
         kromozom1 += iki1->veri;
         iki1 = iki1->sonraki;
         kromozom2Uzunluk++;
     }
     iki1 = iki;
-    cout << endl;
-    cout << "Olusan ve listeye eklenen kromozomlar: " << endl;
 
     // sayi1'in sol yarisini ekle
     for(int i = 0; i < kromozom1Uzunluk/2; i++)
     {
-        cout << bir1->veri << ' ';
         liste->Ekle(bir1->veri);
         bir1 = bir1->sonraki;
     }
-    // bir1 = bir;
-    cout << ' ';
-    // sayi2'nin sag yarisini ekle
 
     for(int i = 0; i < kromozom2Uzunluk/2; i++)
     {
@@ -98,7 +119,6 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
     {
         for(int i = kromozom2Uzunluk/2; i < kromozom2Uzunluk; i++)
         {
-            cout << iki1->veri << ' ';
             liste->Ekle(iki1->veri);
             iki1 = iki1->sonraki;
         }
@@ -106,44 +126,35 @@ void Fonksiyonlar::Caprazlama(int* sayi1, int* sayi2)
     } else {
         for(int i = kromozom2Uzunluk/2 + 1; i < kromozom2Uzunluk; i++)
         {
-            cout << iki1->veri << ' ';
             liste->Ekle(iki1->veri);
             iki1 = iki1->sonraki;
         }
         iki1 = iki;        
     }
     liste->Ekle('_');
-    cout << endl;
 
     // sayi1'in sag yarisini ekle
     if(kromozom1Uzunluk % 2 == 0)
     {
         for(int i = kromozom1Uzunluk/2; i < kromozom1Uzunluk; i++)
         {
-            cout << bir1->veri << ' ';
             liste->Ekle(bir1->veri);
             bir1 = bir1->sonraki;
         }
-        // bir1 = bir;
     } else {
         for(int i = kromozom1Uzunluk/2 + 1; i < kromozom1Uzunluk; i++)
         {
-            cout << bir1->veri << ' ';
             liste->Ekle(bir1->veri);
             bir1 = bir1->sonraki;
         }
-        // bir1 = bir;  
     }
     // sayi2'nin sol yarisini ekle
     for(int i = 0; i < kromozom2Uzunluk/2; i++)
     {
-        cout << iki1->veri << ' ';
         liste->Ekle(iki1->veri);
         iki1 = iki1->sonraki;
     }
-    cout << endl;      
     iki1 = iki;
-    cout << ' ';
 
     liste->Ekle('_');
 }
@@ -166,13 +177,10 @@ void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
 
     gec2 = gec;
     gec3 = gec;
-    cout << "Mutasyona ugrayacak kromozom: \t";
     while(gec2->veri != '_' && gec3->sonraki != nullptr)
     {
-        cout << gec2->veri << ' ';
         gec2 = gec2->sonraki;
     }
-    cout << endl << endl;
 
     for(int i = 0; i < *sayi2; i++)
     {
@@ -181,13 +189,10 @@ void Fonksiyonlar::Mutasyon(int* sayi1, int* sayi2)
 
     gec->veri = 'X';
 
-    cout << "Mutasyondan sonra: \t\t";
     while(gec3->veri != '_' && gec3->sonraki != nullptr)
     {
-        cout << gec3->veri << ' ';
         gec3 = gec3->sonraki;
     }    
-    cout << endl;
 }
 
 void Fonksiyonlar::EkranaYaz() {
@@ -231,7 +236,6 @@ void Fonksiyonlar::EkranaYaz() {
     cout << endl;
 }
 
-
 void Fonksiyonlar::OtoIslem()
 {   
     ifstream dosya(ISLEMLER_ADRES);
@@ -264,10 +268,7 @@ void Fonksiyonlar::OtoIslem()
     }
 }
 
-
 void Fonksiyonlar::Program() {
-
-
    int secim;
     do {
         int sayi1 = 0;
@@ -284,13 +285,12 @@ void Fonksiyonlar::Program() {
 
         switch (secim) {
             case 1:
-
                 cout << endl << "Sol yarisi istenen kromozom sirasi: ";
                 cin >> sayi1;
                 cout << endl << "Sag yarisi istenen kromozom sirasi: ";
                 cin >> sayi2;
                 cout << endl;
-                Fonksiyonlar::Caprazlama(&sayi1, &sayi2);
+                Caprazlama(&sayi1, &sayi2);
                 break;
 
             case 2:
@@ -299,21 +299,20 @@ void Fonksiyonlar::Program() {
                 cout << endl << "Kromozomdaki DNA'nin sirasi: ";
                 cin >> sayi2;
                 cout << endl;
-                Fonksiyonlar::Mutasyon(&sayi1, &sayi2);
+                Mutasyon(&sayi1, &sayi2);
                 break;
 
             case 3:
-                Fonksiyonlar::OtoIslem();
+                OtoIslem();
                 cout << "\nOtomatik Islemler Gerceklestirildi..." << endl;
                 break;
 
             case 4:
-                Fonksiyonlar::EkranaYaz();
+                EkranaYaz();
                 break;
 
             case 5:
-                cout << "Programdan cikiliyor..." << endl;
-                break;
+                return;
 
             default:
                 cout << "Gecersiz secim, tekrar deneyin." << endl;
@@ -322,7 +321,6 @@ void Fonksiyonlar::Program() {
     } while (secim != 5);
 }
 
-
 int Fonksiyonlar::Cikis() {
     if (liste != nullptr) {
         delete liste;
@@ -330,31 +328,4 @@ int Fonksiyonlar::Cikis() {
     }
     cout << "Programdan cikiliyor..." << endl;
     return 0;
-}
-void Fonksiyonlar::DNA_Oku() {
-
-    
-    if (liste == nullptr) {
-        liste = new BagliListe();
-    }
-    ifstream dosya(DNA_ADRES);
-    if (dosya.is_open()) {
-        std::cout << "Dosya basariyla acildi!" << std::endl;
-        string satir;
-        while (getline(dosya, satir)) {
-            if (satir.find_first_not_of(' ') != string::npos) {
-                listeNo++;
-                for (char harf : satir) {
-                    if (harf != ' ') {
-                        liste->Ekle(harf); 
-                    }
-                }
-                liste->Ekle('_');
-            }
-        }
-        dosya.close();
-    } else {
-        cerr << "Dosya acilamadi: " << DNA_ADRES << endl;
-    }
-
 }
