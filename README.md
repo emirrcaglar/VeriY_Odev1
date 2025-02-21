@@ -18,7 +18,7 @@ Bu proje, aşağıdaki işlemleri desteklemektedir:
 
 ## Dosya Yapısı
 
-Projede aşağıdaki klasör yapısı kullanılmalıdır:
+Projede aşağıdaki klasör yapısı kullanılmıştır:
 
 - `src/` - Kaynak dosyalar
 - `lib/` - .o dosyaları
@@ -26,4 +26,4 @@ Projede aşağıdaki klasör yapısı kullanılmalıdır:
 - `doc/` - Rapor dosyası
 - `bin/` - Çalıştırılabilir (.exe) dosyalar
 - `benioku.txt` - Program hakkında ek açıklamalar
-- `makefile` - Derleme dosyası (makefile olmaması durumunda -50 puan ceza uygulanacaktır)
+- `makefile` - Derleme dosyası
